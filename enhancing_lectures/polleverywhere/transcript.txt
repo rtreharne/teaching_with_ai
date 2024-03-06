@@ -1,0 +1,1062 @@
+I just lost my. Okay.
+0:01
+So new week, new topic in 748.
+0:06
+This is a slightly different title to the one in the in the handbook.
+0:11
+But basically what we're going to be trying to do in the next couple of weeks is understand how structural binds traumatic.
+0:15
+So predicting and analysing the structure of proteins can help us predict their functions as well.
+0:23
+So how does this fits in with the rest of the module?
+0:29
+Well, in the module so far you've been doing a lot about genome sequencing alignment, assembly gene finding.
+0:32
+All of that is great,
+0:40
+but it doesn't count for very much in terms of the biological understanding unless we can understand what all of those genes are actually doing.
+0:41
+Most of those genes encode for proteins. A protein structure encodes its functions.
+0:49
+So logically we can tell a lot more about a protein function by explicitly considering its sort of structural aspects.
+0:55
+And that's really what these lectures are about, lectures and workshops.
+1:03
+So that will lead in hopefully to your genome report assessment.
+1:10
+So in that assessment, which is run by Professor Bettencourt, I don't know all the details,
+1:14
+but I know you're invited in that assessment to consider the structure and what
+1:19
+that tells you about some of the genes that you find in your genome of interest.
+1:25
+So this should be the icing on the cake, if you like, for your genome report assessment.
+1:30
+So we've got two weeks each with a lecture and an accompanying workshop.
+1:41
+What we're going to do and there's going to be a bit of a reminder at the beginning.
+1:46
+So there's some slides you saw before and 7 to 1 because we talked a little bit about protein structure,
+1:50
+then a little bit, just to remind you about four fold,
+1:55
+especially how to interpret the results of Alpha four because of course,
+1:59
+and the protein structure prediction world Alpha Fold has taken over from everything else basically.
+2:03
+And then today we'll start I've called them simple.
+2:10
+That's crap. Setting them down. They're not necessarily unsophisticated,
+2:13
+but they're kind of long standing ideas about how we can look at a protein structure and read out something interesting about its function.
+2:17
+And then next week we'll be moving on to talk about protein interactions.
+2:26
+So one protein and complex with another alpha fold can also predict that Alpha fold can also be
+2:30
+induced to predict more sophisticated things like multiple confirmations per particular protein,
+2:38
+which of course is very relevant to understanding that protein function.
+2:44
+And then in the second week, we'll also be looking at some of the very latest, literally in the last year, last month, last year,
+2:49
+deep learning based methods will take a protein structure and try and read
+2:55
+something out pretty much directly by application of some deep learning method.
+3:00
+Tells you something about what that protein is doing. And I meant to say at the beginning, but this is such a small class.
+3:05
+It's been years and years. I haven't had a class like this, so I hope you feel free to sort of stick your hand up at any point,
+3:13
+and I hope you'll be answering the questions that I might throw at you rather than the usual sort of silent, invisible crowd of people I usually get.
+3:20
+So. So why is I mean, this is just a quick reminder.
+3:28
+I won't spend too much time on this. Why should we model proteins?
+3:35
+In other words, predict their 3D structure,
+3:38
+And it's all about understanding their function better because ultimately the function of a protein is how it interacts with other
+3:41
+molecules and how it interacts with other molecules and which of the molecules it can interact with depends on its 3D shape.
+3:49
+The shape of a protein and its characteristics allow it to interact with and possibly do some chemistry on other molecules.
+3:57
+So understanding and understanding the structure of the protein should allow us a much more direct readout of what its function is.
+4:05
+And as you'll see today and next week, there are many, many different ways in which we can feed a computer program,
+4:19
+a protein structure, and hope it can tell us something about the function.
+4:26
+There's all sorts of different ideas in this area. This isn't the first time you've been thinking about protein function.
+4:31
+Of course, we did that a lot in 7 to 1.
+4:38
+So what are some of the sequence based programs that you saw in 7 to 1 that might tell you something about protein function?
+4:40
+Blast. Yeah, yeah, yeah. Except actually. But yeah, blast psi blast.
+4:49
+The kind of domain analysis is looking for domains. There are always sequence based ways of looking at protein function,
+4:54
+but the simple methods at least will never tell you anything new because they're all based on transferring knowledge from one protein to another.
+5:01
+So all of the completely novel functions, which we have to assume are still out there to be discovered,
+5:10
+Blast isn't going to help you with that because those novel discovery functions have never actually been described yet,
+5:16
+whereas if you have a structure, you might be able to analyse that structure in detail and say,
+5:23
+I think this protein has some function that's never been seen before and that's a completely different position to be in.
+5:28
+So some of the very simple ways in which in which we can.
+5:36
+Which we can look at the structure and read out something about its function.
+5:44
+We'll see these in a bit more detail later on. But sometimes just the fold of a protein might lead us to have a particular idea about what it does.
+5:49
+So there are certain protein folds, ways of protein folds up, which are strongly associated with a particular function.
+5:58
+And if we saw those in a crystal structure cry, we have a structure, and a model doesn't really matter where we might start to say,
+6:06
+well, this for what I've seen before, many times in DNA binding proteins, maybe this new protein I'm interested in also binds DNA.
+6:14
+We'll look at electrostatic because where you get a big strong electrostatic surface like here,
+6:24
+that's often not by chance, that's often telling you something about what molecules that protein combine to.
+6:31
+So blue here means positive.
+6:37
+There's a big positive patch that suggests maybe is some big negatively charged molecule that this protein is waiting to bind to.
+6:39
+And the very simple idea of just looking at the protein shape and looking for cavities.
+6:49
+And if you knew nothing about this protein at all, you might guess quite reasonably or predict that it was binding something in this cavity,
+6:55
+because that's where the binding, the function tends to be encoded.
+7:03
+So that's that's kind of why we're doing it. And we'll come into the details later on.
+7:08
+How we're doing it these days is often is typically about generating a model with Alpha fold and seeing what that tells us.
+7:13
+So it's important that we can interpret the alpha fold outputs.
+7:21
+It's important that we can say, Yes, this model looks great.
+7:26
+I can treat this model almost as if it's a crystal structure because I think this model is really high quality.
+7:31
+Or alternatively, this model doesn't look good at all.
+7:36
+I probably should be very reticent about reading anything into this model because even Alpha Fold is not saying it's not confident in this model.
+7:40
+So you need to be able to understand this the quality, the predicted quality of your model in order to be able to say what,
+7:48
+if anything, you can do with that model to interpret some function onto that.
+7:56
+So this is just a reminder that you get obviously, you know, this you get three.
+8:01
+What is this is a reminder. Hopefully you get three different outputs from Alpha fold.
+8:07
+You get the coordinates, which is what you're kind of excited by.
+8:12
+That's the predicted structure. But you also get these measurements, measurements, you get these values.
+8:16
+Get these values that tell you something about the confidence the alpha forward has in the structure.
+8:29
+So the pldt is a measure of the local quality.
+8:38
+So that's where Alpha Folds says in the vicinity of this particular residue.
+8:42
+I think the local environment is well modelled, is confident or not, and it's going to colour.
+8:47
+Well, it's become customary to the colour code that pldt wear.
+8:54
+Blue is good, you know, pretty much as good as a crystal structure you might say Cyan.
+9:00
+A bit less so, but likely to be broadly correct.
+9:06
+And then these lower values where Alpha fold has no confidence and we shouldn't read anything into these coordinates here.
+9:10
+Those low confidence regions you might remember are some.
+9:19
+Sometimes they are simply bad predictions. And there are cases where I have made bad predictions.
+9:23
+That's a surprise. The reason I'm surprised about that is because generally it does very well, but it doesn't always do well.
+9:30
+And we'll come on to one reason why it doesn't always do well.
+9:35
+But often these regions of low confidence, you might remember, are what's called intrinsically disordered regions.
+9:39
+So these are parts of a protein which simply don't have a single well-defined structure and they are not uninteresting.
+9:46
+They can still have important functions. They're often involved in protein protein interactions where there's a little motif in
+9:56
+that disordered region that interacts with another protein in terms of their structure.
+10:03
+They are poorly defined, at least until they bind to something else.
+10:08
+And that's the explanation for a lot of the red and orange and yellow that you might see in a model,
+10:13
+especially in a eukaryotic protein where there's lots of disorder around.
+10:18
+We can see here, for example, this is the animal structure of this protein.
+10:22
+The ends of this protein are basically disordered floppy, waving around.
+10:27
+No particular structure, alpha fold will still give you a particular single structure,
+10:33
+but it's telling you it knows that that's one among many possibilities for that region, because it's a disordered part of the protein.
+10:39
+And then the second one, perhaps remember, this was in your assessment.
+10:48
+So this is a measure of the global confidence our fold has in the relative arrangement of different domains within a protein.
+10:53
+So here's a protein that has four domains. You can see the domain structurally here.
+11:04
+Each of them is light blue, which means alpha, for one, is pretty happy that it's got the fold of those four domains, correct?
+11:09
+That's fine. What about the question of how these domains are arranged with respect to each other?
+11:16
+Do they actually look like this with these four domains arranged like this, or could it be something different?
+11:23
+The page here is telling us quite clearly that this is simply one among many
+11:31
+possible ways in which those four domains could be packed against each other.
+11:36
+How do we know that? We might remember these are the reliably predicted domains, little squares on the diagonal,
+11:40
+where within say, residues 1 to 18 alpha fold is very confident.
+11:48
+In other words, there's a low predicted error here. So this is all happy days between this domain and this domain.
+11:54
+This is very light colour, which means that the predicted error is very high and Alpha Fold essentially has no confidence whatsoever
+12:01
+that the way those two domains are arranged with respect to each other in 3D space is correct.
+12:09
+It could be like this, it could be like it could be anything. And that makes sense when we look at it,
+12:13
+because we can see these long disordered linkages between the domains and that imply that confers a degree of flexibility between those two domains,
+12:19
+which means that their relative orientation is not well-defined.
+12:30
+So people are arriving late. And that's in contrast to this protein here, where with the exception of this long loop, it's one big,
+12:37
+well-defined structural block where everything is confidently arranged with respect to other residues in the protein that makes sense.
+12:48
+You remember all that now? Domains and P So you'll come back to these ideas as we're going along.
+12:58
+I didn't spend much time on this because you probably remember this and you'll be doing this again tomorrow.
+13:08
+So you can make your own alpha fold models quite easily on a page.
+13:13
+Just a reminder, you will need to be locked in with a Google account.
+13:20
+But everybody had that for 71, so I assume you haven't been kicked off Google in the meantime.
+13:24
+You can say that again tomorrow.
+13:29
+But there's also the database. Of course, these well, don't need to go through these.
+13:34
+These are the pldt, the P that you get when you make a colourful model.
+13:42
+We'll talk about this again in a second.
+13:50
+This is telling you how many homologues for your protein of interest Alpha four manages to find and you'll see that's really important.
+13:52
+So just to talk through that, here's a protein that's just over 200 residues long.
+14:01
+You can see the number of sequences down the left. This is going up to thousands here and this is the sequence identity to the query.
+14:07
+So this is summarising, if you like, what you might get.
+14:14
+It's not using blast, but it might use blast and it's finding all of the homologues in the database, making it with alignment.
+14:18
+And it's saying I've got about about 100 really close homologues with 90% sequence identity
+14:25
+and I've got maybe 2000 Homologues that I can find for all or part of the protein,
+14:33
+mainly with the lowest sequence identity. You'll see that the number of homologues that alpha fold find for your protein is really important because
+14:39
+it uses that information to make the model and if it lacks that information is likely to make a bad model.
+14:48
+That's what I'm showing you here. So I'm not going into the details of it here.
+14:57
+But there's an idea called evolutionary covariance.
+15:04
+What that means is that in a big alignment of protein sequences, you can read out connections, relationships between individual residues.
+15:08
+For that to work, you need a deep alignment. So you need that alignment with many sequences as we've got here.
+15:19
+In this case, it was all good. There were 2000 or so sequences and that allowed us to make a really good model.
+15:26
+In this case, there's only one or two sequences in the database that are similar to the protein that we're interested in.
+15:34
+So this is a challenging case. The relevance sequences in the database that are unrelated to anything else, they're called singletons.
+15:41
+So one sequence with no homologues at all that you can find.
+15:50
+What that means is that Alpha Fold can't determine this evolutionary covariance information and it produces much lower quality structures as a result.
+15:54
+So here is the actual structure of the protein.
+16:09
+We know that because it's actually a crystal structure, this protein.
+16:13
+But if you ask how to make a model without reference to the crystal structure, of course it does a very bad job.
+16:16
+And that's because as well as the protein sequence itself, there's only one homologue in the database.
+16:23
+So the key message is that you need lots of sequences related to your protein to make
+16:31
+a good model and alpha fold struggles when you have only a few sequences to write it.
+16:38
+Funnily enough, there's a bit of an exception to that.
+16:46
+People have realised that Alpha Fold is very good at making models of artificial proteins and of course an artificial protein and a natural protein.
+16:49
+It doesn't have any homologues because we've invented some completely novel protein that's unrelated to something in nature.
+16:58
+But nevertheless Alpha Fold can make good models of that.
+17:05
+And the idea is that those models work well because you can perhaps see that
+17:08
+these models are very sort of perfect in a sense of they're very well packed,
+17:15
+the lots of regular second restructure, not many loops.
+17:19
+And so they're kind of easier. They're more perfect, more ideal proteins than natural proteins.
+17:23
+And so Alpha four can still make a model of them. Does that make sense?
+17:31
+I realise I may have skipped a slide about evolutionary covariance I plan to go into,
+17:37
+but essentially the idea is that in a big alignment you can spot relationships between residues
+17:42
+and say these two residues must be close together in 3D space just to be related in that way.
+17:48
+And if you don't have a big alignment, you can't extract useful information.
+17:55
+So make some kind of sense. Any questions on that?
+18:00
+So that's the kind of key feature of Alpha forward.
+18:08
+And the important consequence of that is that these are the kind of proteins alpha forward is going to struggle with.
+18:10
+There's not many of them, to be honest.
+18:16
+If you were to take a random protein and do a database search with it, you probably find hundreds or thousands of homologues.
+18:17
+But in certain kind of weird organisms that have perhaps not been explored very much before,
+18:24
+you can still find proteins that are pretty much unique or very small families, and then Alpha Fold will struggle with them.
+18:30
+Okay, so. A little bit on databases.
+18:40
+Again, this part is a reminder there is a database of alpha forward structures.
+18:47
+Alpha four protein structure database has come this grown over the past few years.
+18:54
+Now it's about 200 million. There is a version for, but that's not interesting addition to version three.
+19:00
+So these are predictive structures from Alpha Fold on a on a very large scale.
+19:09
+You've seen that before. What you haven't seen.
+19:15
+Just to make you aware is that there's another database along very similar lines called the same message Islamic Atlas.
+19:18
+It's about three times bigger than the Alpha four database.
+19:28
+So this is already huge, 200 million proteins in it.
+19:31
+This has about six a million proteins.
+19:35
+What they've done here is use a different modelling method called ESM forward, which works in a completely different way.
+19:39
+It's also a deep learning method.
+19:46
+It doesn't work quite as well as Alpha fold, which is why I'm not talking about it in the same detail, but it's much quicker.
+19:48
+And that's allowed them to work with an even larger number of protein sequences.
+19:55
+So there's a database of metagenomic sequences.
+20:02
+Everybody must know by now what metagenomics, as you've been doing all of the genome assembly and stuff.
+20:06
+So metagenomics is kind of sequencing that environment and seeing what's there in a kind of unbiased way.
+20:11
+So what you end up with is vast numbers of sequences, but without the actual quality annotation that you get a unique process.
+20:19
+But this is a big structural database that you could use and more or less the same way as you would down for full database.
+20:29
+So. So we've got these big databases of protein structures and there was a very urgent need for
+20:39
+was a way of searching those databases efficiently because the methods for searching the PDB,
+20:48
+which is a much smaller database, 200,000, the best methods to do that are really slow.
+20:56
+So they just simply don't scale up to the challenge, the Alpha Fold database, much less the Metagenomic Atlas.
+21:02
+So there was a big need and some very smart guys came up with some software,
+21:10
+which is really important software in this area called Fold Sake, which allows us to search those databases in a very efficient way.
+21:15
+So in terms of sensitivity, in terms of giving us good results, it's almost as good as Dali.
+21:26
+Dali is kind of the gold standard in the area, but it's very, very slow.
+21:33
+So it's no use for searching these big databases. So it's almost too sensitive, but much, much faster.
+21:38
+And there's a a server which you'll use quite sophisticated now, which does this very quickly.
+21:45
+So you're searching these databases in seconds. It's absolutely amazing.
+21:52
+Just to give you a flavour of how they've achieved this efficiency.
+21:57
+What they do is they encode a3d structure as a1d string, and that allows them to work with the string in the same way as you would a protein sequence.
+22:02
+So you kind of capture all of that 3D complexity and a string, which is much more computationally tractable.
+22:14
+So how do they do that? They look at each position in, in the protein and they,
+22:24
+they measure distances between amino acids and they define for each amino acids a
+22:34
+kind of an alphabet that describes its relationship to its nearest neighbours.
+22:41
+So they will look at nearest neighbour, nearest neighbour residues.
+22:48
+They will measure these distances.
+22:53
+There are still more distances there than 20, but they use a kind of they find a way to collapse down that information into 20 states.
+22:55
+Why do you think 20 states can only want to see y y 20?
+23:08
+What's the coincidence or it's not a coincidence. What's the where have you seen the number 20 before?
+23:13
+Exactly. It's 20 amino acids. So what that means is they can simply borrow all of the software,
+23:19
+all of the algorithms that were written to work with 20 amino acids and work with 20 states that represent the 3D structure of a protein.
+23:25
+And this allows them to be very efficient.
+23:34
+So you'll see this tomorrow. This is what you get.
+23:40
+These are the databases you can search and you can search the PDB can search out four fold, various derivatives of it very cleverly.
+23:43
+You can use a taxonomic filter. So if you only want to look in bacteria or you only want to look in mammals,
+23:54
+you can type a term here and it will only give you the results from within that group that you've specified.
+24:02
+And then the results that you see these look a lot like.
+24:11
+Blast results. So your your query is laid out here.
+24:17
+Our query here is just over 200 residues. And we're seeing these are that colour coded.
+24:22
+So dark blue is a lower value.
+24:28
+And you can see each of those bars represents a structure in the Alpha Fold database, which has a similarity to our query structure.
+24:33
+So we're fed in a structure. It can be a model, it can be a pretty structure, doesn't matter and out and fold.
+24:43
+Seek is telling us it's found all of the similar structures in the Alpha Fold database, and then you can click on one of them.
+24:51
+You click here and you get a little panel that gives you an alignment.
+24:59
+This is all very much like you would see with blast results, but then you see the structural alignment as well.
+25:03
+You can swivel it around and so on. You can explore all of this tomorrow.
+25:10
+So one little question you might be having is if the Alpha fold database is so huge and it has models for me,
+25:16
+why am I interested in learning how to make my own models?
+25:23
+And there's a lot of answers to that question. Some of them relate to the database specifically, some of them relate to Alpha fold.
+25:27
+Some of these will come on to in the next lecture or in the workshop.
+25:35
+So proteins have different conformations, so an enzyme can be in an inactive form.
+25:40
+In an active form, the database may have the inactive form.
+25:47
+You might want a model of the active form, so you might want to model something that's different to what's in the database.
+25:52
+This is not something that four fold can currently do.
+26:01
+But it's interesting that the next generation of Alpha fold and Rosetta fold will be able to do this.
+26:04
+So post-translational modifications, things like phosphorylation bound ligands.
+26:10
+No software can currently do that, but within this year there will be software to do that, which is amazing.
+26:16
+We've talked about this that models of orphans actually use the word singleton and orphan
+26:25
+is another word for a protein that doesn't have a family that doesn't have any homologues.
+26:34
+So this is where Alpha Fold will struggle.
+26:39
+But in the database, for example, this links to what you've been learning in previously in this module that there
+26:45
+is such a thing as splice variants that lead to different protein isoforms.
+26:52
+You've come across that, right? Yeah. So in the database you get one structure for that protein and it may or may not be the isoform that you want.
+26:57
+So maybe it's built a model of one isoform you'd like a different Isoform So therefore you need to go and build your own in the database.
+27:05
+Very large proteins can be missing, or in the case of very large human proteins, are split into chunks and you have to work harder to get them.
+27:16
+So it might be easier to make your own. In the Alpha four database, there are no complexes.
+27:25
+So if your proteins attach from A and you want to build a tetra, you have to build it yourself.
+27:31
+If your protein interacts with another protein and you want to model that interaction, you have to do it yourself and you'll do that next week.
+27:36
+Next week's workshop will be that.
+27:45
+And then just relating to the points about the alignment, the the models in the database, they're already a year or 18 months old, right?
+27:47
+So if you were if that model was built for one of these orphan singletons, a kind of protein alpha fold struggles with,
+27:57
+it may be that in the past year, 18 months more sequences have come along which allow you to build a better model.
+28:08
+So more sequences coming along all the time. Those proteins that were previously difficult may become less difficult and they become good.
+28:14
+So the model in the database may not be the best model you can make given the number of sequences that are available today.
+28:23
+Does that make sense? So lots of reasons why you do need to learn to make your own modules.
+28:31
+I mean, you can have a quick look at the database and that might do the job,
+28:38
+but in any of these circumstances, you'll need to generate your own modules.
+28:41
+Right. So that's a little bit of revision and expansion of ideas you've seen before.
+28:47
+Moving on to now is thinking about how we can read out protein function from the models that we make with alpha fold as just moved up and up.
+28:56
+Are there any questions at that point? Yeah.
+29:10
+Yeah. I mean, first of all. Oh, right.
+29:23
+Well. Well, that's a real can of worms.
+29:29
+We should talk about another time, because an interesting perspective on that that I just don't have time to go into right now.
+29:35
+But I mean, most people you talk to would like to maintain a distinction between,
+29:41
+you know, crystal structures, crime structures and armour structures,
+29:48
+structures where you can collect some data on a big fancy instrument and you determine
+29:51
+the structure and then something that's merely been predicted by a computer.
+29:56
+Most people will say something, even something very clever like unfold as being in a different category and fundamentally less trustworthy,
+30:01
+less reliable, a different kind of data.
+30:10
+There is a sort of counter view to that, which we can talk about another time, but you're talking to most people.
+30:14
+You will see a distinction between an experimental structure and a predictive structure, and people will say, I trust an experimental structure.
+30:23
+I'm automatically a little bit sceptical about predictive structure.
+30:30
+And so, yeah, it was, it was.
+30:34
+It was the language that was sometimes used.
+30:40
+So if people if someone told you they determined the crystal structure, you would automatically think of an experimental method like crystallography.
+30:44
+And only a minority of people, but possibly a minority of people with some good reasons would say, Well, these days,
+30:55
+maybe I should consider Alpha fold as a kind of a different modality of structure rather than a fundamentally less reliable,
+31:01
+different category of strip. It's a long discussion.
+31:11
+It's an interesting one, but I will save that for another time, if that's all right.
+31:16
+Sorry. But yeah, it's a it's a really good question how you view different kinds of data and whether computational predictions are,
+31:21
+in fact fundamentally less reliable. I think there's two sides to that, definitely.
+31:30
+Right. So that's all about getting up.
+31:36
+So structures, how do we read function from those structures?
+31:40
+And this is just a reminder of perhaps the most basic idea, which is to say that if we can spot homology between two proteins,
+31:45
+then we might think that the functions are somehow similar or perhaps even the same.
+31:54
+And this is not new to you in any way, of course, because all of the work that you've done with Blast and PSI Blast is about saying, Look,
+32:00
+I've got an E value that's really low, that tells me these proteins are homologous and therefore I think they might have the same function.
+32:06
+If you've thought through all of this logic before,
+32:14
+all that's new here is the idea that structural information is a more powerful way to determine to detect homology than sequence information.
+32:17
+And the reason for that is illustrated here.
+32:28
+We've got two proteins and at first glance they look really, really similar, but they're only 30% sequence identical.
+32:32
+That's not super low. Of course, you could probably detect that with PSI blast.
+32:40
+That's no problem. But what this is saying is that 69% of these residues are different, and yet that structure is more or less maintained.
+32:43
+So as evolution proceeds over millions of years, mutations occur, but many mutations don't change the structure.
+32:56
+So the structure of another way of viewing it, if you like,
+33:05
+the structure allows us to look back further in time and see relationships that were defined longer ago.
+33:08
+It's more powerful. We can look back further than we can with sequences.
+33:17
+Sequences may allow us to look back a certain period of time, but we can look back further if we have structure and information.
+33:22
+So that's why structures are so useful.
+33:31
+And here's an example of this, But you may just remember a program because I mentioned it in 71 called H.H. Pred.
+33:34
+I won't go into any of the details, but H.H. Create is basically the most powerful way of detecting relationships using sequences.
+33:44
+So it's the absolute pinnacle of what you can do with sequences.
+33:54
+And here's a protein that we were interested in that we looked at with h h h h.
+33:58
+Pred finds matches in the PDP and P from wherever you like.
+34:04
+And we got lots of easy matches for this part here, which is a membrane transporter domain doesn't really matter.
+34:09
+So this 300 residues here, we could see absolutely nothing by sequence methods, even this really powerful sequence method.
+34:15
+And yet we tried it with alpha fold. Alpha fold gave gives us this model, this chunk here, all this multicoloured stuff is this membrane region here.
+34:27
+The purple domain is within this part here.
+34:39
+It was completely invisible when we looked by sequence, but when we made a model alpha fold found this domain.
+34:42
+And more than that, this domain actually made a lot of sense.
+34:50
+So this domain, when we used forward seek on it, we looked for structural similarities.
+34:53
+It turned out to look like a gold domain. Doesn't matter what a gold domain is, but that makes sense.
+34:59
+With what we knew about the behaviour of the protein. The key point is that was completely invisible here.
+35:04
+It was only when we used a structural perspective that we could see that homology and that allowed us to say,
+35:10
+well, maybe this part of this protein has this particular function, has this particular domain set up.
+35:16
+You see the point. This is an absolutely key thing.
+35:23
+This is alpha fold as turbocharge this whole area of spotting cosmologies and inferring function from them.
+35:25
+And it's important to try different methods when we looking for homologues.
+35:37
+Otherwise you can think you've got something new and you actually don't.
+35:42
+So a quick example of that was this protein, which there was a paper came along that said, Oh,
+35:47
+we've found the super exciting new fold, but they didn't actually look in the most sensitive way.
+35:54
+When I looked in a different way,
+36:01
+I could see the relationships we can see visually with this other protein that kind of made sense with the function again.
+36:03
+So the the message here is that like so many things in bioinformatics, the smart move is if you're really,
+36:11
+really interested in a question is to try and apply different methods and look for a consensus view.
+36:19
+And that's actually what we end up doing a lot in this kind of function annotation area.
+36:27
+We apply different ideas and if they're all pointing in the same direction, then we think we're onto something.
+36:34
+All right. Just keeping an eye on the time.
+36:42
+Another database that that's relevant in this area is called Alpha Phil.
+36:47
+I'll describe the database and then I'll show you how it's relevant to us.
+36:55
+Alpha Phil tries to add back Lykins, drive Alpha, fold models in the database.
+37:01
+So like I said before, Alpha Fold doesn't do ligands yet.
+37:06
+So the Alpha Fold database is full of proteins, many of which have ligands, sometimes super important ligands, but they're missing in the database.
+37:10
+So here's a globin, for example.
+37:19
+We know this globin should really be binding a theme group because that's fundamental for what it does, but that's absent in the Alpha four model.
+37:22
+So Alpha Phil will try and say, okay, here's my model.
+37:30
+I can match this to a globin in the PDP.
+37:35
+I can see that the binding site for that Haem group in the PDP structure, the experimental structure is conserved in this Alpha four model.
+37:38
+So I can kind of transplant the ligand from the PDP structure into the Alpha fold model and kind of add back the missing ligand.
+37:49
+So to that structure. How is this relevant?
+38:00
+Well, many times you are you will take a model that you're interested in.
+38:04
+You'll query the Alpha four database and you may have, if you're unlucky, in a sense,
+38:11
+you may have a protein fold which is associated with different functions.
+38:18
+So the easy case would be my protein fold always binds DNA.
+38:22
+That protein fold whenever you see it across the whole of nature, always binds DNA.
+38:28
+That's easy because as soon as you spot that fold, you say it's binding DNA job done.
+38:32
+If it's harder, then you have a fold like here, even the globin fold, which is famous for binding haem.
+38:38
+In some organisms, it's adapted to do other functions.
+38:46
+So what this means is that if you recognise a globin fold in a protein that you're interested in,
+38:50
+you may not be clear whether it's binding haem in this conventional way or whether it's binding this fatty acid as it does in certain bacilli.
+38:56
+But you could use alpha filter spots that some model was either compatible with the haem as here it was compatible with binding the fatty acid.
+39:06
+So you could kind of read out from the alpha filled database which ligand fits
+39:18
+into your model and therefore which function was more likely for your protein.
+39:24
+So that makes sense. Okay.
+39:30
+I just keep see where I am. 42.
+39:36
+Okay, So. What I want to do now is go through a bunch of different methods.
+39:40
+They're all based on looking at a protein structure, scanning that protein structure and trying to find.
+39:47
+Interesting functional sites. So the first step of my.
+39:57
+Yeah. So the general principle that we're applying here is the functional sites,
+40:06
+the parts of the protein surface that are important for the function, that they are different somehow from the protein surface in general.
+40:12
+And this is the basic principle that allows those in very different ways to scan a protein structure and spot sites,
+40:21
+which may be finding ligands, maybe catalytic sites, because they're different in some way.
+40:28
+So I'll just go through these relatively quickly.
+40:37
+You'll see some of these in the workshop tomorrow.
+40:40
+This is possibly the most important of them, actually, because it's such a general idea.
+40:46
+So the general idea here is that if a region of the protein is important for the function,
+40:51
+maybe it's a binding site, then it will be conserved through evolution.
+40:58
+Because evolution, if you if you try to mutate this ATP binding site of this kinase, for example,
+41:02
+you would eliminate the activity of this enzyme and that would be bad news for the organism that was that was had this mutated version.
+41:10
+And therefore we wouldn't see that mutated sequence in the evolutionary record.
+41:18
+That organism would die out and that mutant would be invisible.
+41:23
+So we can detect the importance of these binding sites because the residues within them are conserved.
+41:28
+More than that, we know that these binding sites are composed of residues from from far apart in the sequence.
+41:37
+They come together close in 3D space to make the binding sites.
+41:48
+So the right way for us to look for these binding sites is with 3D information and mapping the conservation onto the surface.
+41:52
+So in this particular view of a protein kinase, red means highly conserved.
+42:01
+And we can see that the ATP site that's absolutely essential kinase needs to bind.
+42:07
+ATP is very red. We can see the peptide site is quite red.
+42:12
+There's another site here.
+42:17
+This interacts with the protein that is quite red and there's also residues which are the centre of the protein which are for structural regions.
+42:18
+So when we're looking for functional sites, we're looking for surface science because something is binding at that surface which are conserved.
+42:28
+And I will skip that little bit of detail for now.
+42:37
+Um, another very simple way to look for binding sites is just by analysing the shape because pocket's cavities,
+42:43
+they are the binding sites for proteins generally.
+42:55
+You know, here for example, single chain enzymes, the catalytic site is the largest.
+43:01
+83% of the time. So if you had a structure of a single chain enzyme,
+43:07
+you could determine the catalytic site very easily just by saying, where's the biggest pocket on this protein?
+43:14
+That's very easy to do. You look at the shape. There are lots of bind traumatic methods that will pick out cavities, clefts pockets.
+43:20
+The biggest one is very likely to be the catalytic site. And so there are programs and databases like Caspi which will find the cavities.
+43:28
+So the green here is indicating residues that lie in a cavity in the protein.
+43:41
+And sure enough, that's exactly where this lipid is finding here.
+43:46
+So it's a very general principle. One little cautionary note with these Alpha four models, of course, here's a PDB structure.
+43:50
+This is a nice, tidy protein. This is a kinase.
+44:02
+This is the catalytic site. Sure enough, the largest cavity here is the catalytic site.
+44:06
+What people sometimes forget is that your model may have a lot of this disordered region.
+44:13
+This is the same protein in the Alpha four database, and a lot of this kinase is this red disorder and sort of low quality stuff,
+44:21
+which means that the shape of the protein looks very odd.
+44:32
+If you give that to Caspi, you get an absolutely meaningless result.
+44:36
+So you would need to trim off all of this disordered parts.
+44:41
+Just give Kaspi the nice folded domain and then you get the result.
+44:45
+So just be a bit careful with our four fold, two model, um, electrostatic characteristics.
+44:51
+This is also very easy to look at. Hymel has an option to do this.
+44:58
+You'll see it tomorrow. You can very quickly. They paint a protein surface according to whether it's positively charged or negatively charged.
+45:02
+You need to well, ideally, you have a memory of which is which.
+45:11
+Blue is positive, red is negative. Why is this important?
+45:17
+Well, here's a DNA binding protein. DNA is negatively charged, of course.
+45:21
+So the positively charged patch here is linked to its function of binding the negatively charged ligand, in this case, DNA.
+45:26
+And then the opposite is shown here. This is an enzyme with a positively charged substrate.
+45:35
+And so you can see all around the catalytic site here, we've got this huge quantity of negatively charged region,
+45:40
+which is kind of sucking the positively charged ligand in to the catalytic site and making the enzyme more efficient.
+45:48
+So we can spot these big blue or red patches and think whether they may be related to the function of our protein.
+45:55
+And then there are specific kind of trends that we can spot for protein for binding sites of different kinds.
+46:05
+So looking ahead slightly, this is the kind of slightly more traditional view which is still very relevant.
+46:15
+But this is these are the kind of features which the deep learning methods I'm talking about next week will be capturing.
+46:23
+So just just to join the dots there slightly.
+46:29
+So what people have noted for a long time, you can see this is 2007 is the carbohydrate binding sites in purple here.
+46:33
+They are rich in certain amounts of residues and certain residues compared to the protein surface in general.
+46:41
+So if you look, for example, at W, which you know is tryptophan,
+46:50
+you can see there's a lot more tryptophan in carbohydrate binding sites than there is in other ligand binding site.
+46:54
+So if you have a site, maybe a pocket, maybe a conserved pocket and you see lots of trips of fans,
+47:01
+you might start thinking, aha, maybe this is a carbohydrate binding site.
+47:08
+So it's tryptophan is another aromatics and we can see why,
+47:13
+why they are favoured in carbohydrate binding science is because they kind of sandwich a kind
+47:19
+of plain a sugar group here between the two aromatics and this is a favourable interaction.
+47:27
+So we see a lot of this carbohydrate binding sites.
+47:33
+Yeah, I will mention this one just because it's so counterintuitive.
+47:41
+Actually, that's not counterintuitive.
+47:45
+That's not quite the right word. But this is a kind of empirical method which is purely based on statistics.
+47:49
+Some people have not got some great underlying theory about why it works.
+47:56
+Just observe that it does work.
+48:03
+So the idea here is to represent all of the different kinds of atoms and all of the different residues with just 13 different atom types.
+48:06
+And if you've got 13 different atom types, it turns out that you can make a triangle with three of those in 455 different ways.
+48:18
+So if you imagine a triangle of atoms on the surface of the protein that can where those three can interact with,
+48:29
+for example, of water simultaneously, there are 455 triplets, as they're called, by this method.
+48:35
+And essentially in a purely observational, empirical way,
+48:44
+people notice that some of these triplets are much more common at binding sites than other triplets.
+48:48
+And then once you've made that observation, then you can use it to predict where the binding site is on a novel protein here.
+48:55
+So you can see it's been painted according to this propensity here where red means we've got lots of these triplets that are found in binding sites,
+49:03
+and blue means we don't have many of them at all.
+49:12
+And you can see it's picked out of the binding site perfectly just by analysing these triplets and the statistics of.
+49:16
+And then just another category of methods.
+49:26
+Unfortunately, I can't show you these because both of these services are no longer currently working, I should say.
+49:33
+But another idea in this area is to say, okay,
+49:41
+if I if I take a molecular probe and I kind of calculate where that probe interacts favourably with the protein,
+49:44
+I can perhaps directly predict where the binding site is.
+49:54
+And you have different probes for different binding sites. So carbohydrates, they have a lot of hydroxyl groups, of course.
+49:59
+So you can say, okay, I'll scan the protein surface, where will a hydroxyl group bind favourably?
+50:05
+And we can we can calculate that using our ordinary understanding of chemistry
+50:12
+and then we can paint the surface where a hydroxyl group interacts well.
+50:17
+And sure enough, that's exactly where this carbohydrate binds.
+50:21
+And the same shown by this other method where these little pink spheres are favourable points for the probe.
+50:25
+And again they're picking out the actual binding site.
+50:31
+So all of these different ideas and again, this would be another kind of.
+50:34
+The data which will feed into the deep learning methods that you'll see next week.
+50:41
+And then finally, just to mention, because it's an interesting idea, actually, is that everything until now is about finding binding sites.
+50:47
+There are a different class of methods for finding catalytic sites.
+50:56
+Catalytic sites are special because they're going to do some chemistry.
+51:00
+And one way in which you can find them very clever is by spotting residues that are that have an unusual PKU value.
+51:05
+So this requires us to remember what peak value is.
+51:16
+So if you've got an ionised apple group, like an acidic group, the peak value is the p h when it's 50% charge and 50% uncharged.
+51:20
+So it's a measure of the p h, which you've got 5050 ionised and ionised.
+51:29
+And the key observation is that residues that are doing the chemistry,
+51:38
+they often have anomalous peak values compared to what they would ordinarily have.
+51:43
+So an aspartic acid, for example, that would have a peak value typically at about three.
+51:49
+If you spot one that's got a peak value of seven. That's very unusual.
+51:55
+That tells you that this enzyme has evolved to change the environment of that aspartic acid to manipulate its peak.
+51:59
+And the reason it's going to do that is because that will enable it to do the chemistry that this enzyme wants to do.
+52:07
+So here is an example. Here is what a histidine usually looks like.
+52:15
+A peak of about six. These are the normal ones.
+52:20
+This histidine 95 in this particular protein tris phosphate, I summarise as a peak point five here about three.
+52:23
+That's very, very unusual. The reason for that is that it's participating in the catalytic site.
+52:32
+So and we can take a structure, we can predict peak values and we can spot residues that are unusual.
+52:39
+Again, unfortunately this server doesn't work right now.
+52:48
+But if you had this challenge in real life, you would be able to quite easily find software that would predict the peak values.
+52:51
+Perhaps spot this histidine as being unusual and allow you to say maybe that histidine is part of a static site.
+52:58
+I think really out to. Oh, I'm definitely running out of time.
+53:08
+What there is here is a bunch of slides from a real world example where I applied.
+53:12
+I and several of the people applied a bunch of different analyses to a particular protein structure.
+53:20
+So you can kind of look through that if you like. And I'm happy to talk about that, obviously.
+53:28
+But that probably the key method is, is capture it here.
+53:34
+When I said before about multiple methods what you want to do with a challenge here, the challenge was, what's this protein doing?
+53:40
+Where is it doing it? Our conclusion was it's an enzyme of this kind and we could annotate the the catalytic site.
+53:48
+But that came from many, many different lines of evidence.
+53:56
+Most of them based on the structure, all of which pointed in the same direction.
+54:00
+So you're looking for consistency. You're looking for a cavity which is also conserved.
+54:06
+That's two things pointing in the same direction, saying this is a catalytic site.
+54:12
+And when you have a whole big list of things, then you're making a very strong case if they're all consistent and pointing you in the same direction.
+54:17
+So you might want to have a look at those slides and see how we put the story together.
+54:26
+So just to conclude, and I'll see you again tomorrow, we can reinforce all of this with some actual in the workshop.
+54:33
+Obviously, the main point here is that this field has changed hugely recently because our four fold two has come along.
+54:45
+It produces brilliant models. Often it produces bad models sometimes.
+54:52
+And you now understand what kind of proteins line is to produce those models.
+54:58
+If you've got a model which you're confident is really high quality and you know how to how to determine that, now you should do that.
+55:05
+You can basically treat that as you would an experimental structure and apply all of the many, many different tools for structure based annotation,
+55:17
+apply them to the model as they were previously be applied to the actual experimental structure.
+55:27
+One of the key points here is we talked about this in detail is that homology is
+55:37
+more easily detected by structural similarity than it is by sequence similarity.
+55:41
+Remember that gold domain that was completely invisible by sequence comparisons?
+55:48
+We've seen quite a lot of the different structures of function methods,
+55:54
+and there are some new deep learning methods coming along with kind of mixed success.
+55:58
+I would say that you'll see next week, which will take structure any structure and give you some kind of function prediction based on it.
+56:03
+And then a slightly more subtle point, which is a bit hard,
+56:13
+but you would we can talk about this some more is so as well as knowing whether you can trust the Alpha four model,
+56:15
+you need to know whether whether the structure it's a function method requires
+56:25
+a really high quality structure or whether it's kind of tolerant of error.
+56:32
+So just to give you a couple of examples of the electrostatic statics,
+56:36
+if you think about the electrostatic that's defined by one side of the protein has, I don't know,
+56:40
+four positive charges, it doesn't matter if those four positive charges are in exactly the same place,
+56:45
+you will still have four positive charges on one side of the protein.
+56:51
+So that would be in a method that was tolerant of error.
+56:55
+He could have quite big mistakes in the positions of those positive charges and they would still be on the same side of the protein.
+57:00
+They would still give you a very similar result. So there would be an analysis that you could justifiably do on a kind of medium quality model.
+57:07
+You don't need to worry whether it's perfect in every detail. But the PCA one, for example,
+57:15
+you would really need a high quality structure to do that because the peak
+57:22
+prediction depends very much on the environment of that residue to be incorrect.
+57:28
+And so if you've got some even quite small mistakes in the environment for that reason, do that peak prediction is just going to be wrong.
+57:34
+So it's hard to get all of this across in the time available.
+57:42
+But bear in mind that some of these methods are fine to apply to even these models,
+57:47
+whereas some of them really require top quality models and you need to have a little
+57:54
+bit of that in mind when choosing which methods to apply to what kind of model.
+57:58
+Makes sense. Good. Well, I've taught much more than I was planning to, but it's gone plus ten.
+58:05
+But. Okay. Sorry about that. I hope you're not rushing off somewhere else.
+58:14
+Bye. See you tomorrow afternoon, isn't it? And we'll see if some of these methods.
+58:20
+For real.
+58:25
