@@ -3,7 +3,7 @@
 
 These examples of teaching with AI were presented at the SoLS Teaching Meeting on 7 March 2024.
 
-[Download presentation](blob/main/teaching-with-ai.pptx?raw=true)
+[Download presentation](teaching-with-ai.pptx?raw=true)
 
 ## 01 Enhancing Lectures
 
